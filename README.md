@@ -39,6 +39,22 @@ it is not.
 This is the mental model the project is built to make concrete: manage the risk
 shares, not just the dollar shares.
 
+## Example output
+
+The charts below come straight from the plotting code in this repo. The
+committed versions here were generated on simulated data, so they show what the
+output looks like. Run `python scripts/analyze.py --save-plots` to reproduce
+them on live market data.
+
+![Portfolio cumulative return against each holding](images/cumulative_returns.png)
+
+The weight-versus-risk chart is the one to look at. Notice how a holding can
+take up far more of the risk than its share of the capital:
+
+![Capital weight against risk share](images/weight_vs_risk.png)
+
+![Return correlation heatmap](images/correlation.png)
+
 ## How it works
 
 | Module         | Responsibility                                            |
