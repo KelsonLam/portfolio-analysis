@@ -77,7 +77,7 @@ weights `w` and the annualized covariance matrix `S`, portfolio volatility is
 ## Getting started
 
 ```bash
-git clone https://github.com/lamkelson/portfolio-analysis.git
+git clone https://github.com/KelsonLam/portfolio-analysis.git
 cd portfolio-analysis
 pip install -r requirements.txt
 python scripts/analyze.py
