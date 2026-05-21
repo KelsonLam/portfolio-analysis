@@ -23,10 +23,25 @@ def build_weights(
     or ``None``) split whatever is left over equally. The result is normalized
     to sum to 1, so the input weights do not have to be exact.
     """
-    weights = pd.Series(0.0, index=list(tickers), dtype=float)
+    tickers = list(tickers)
+    if not tickers:
+        raise ValueError("No tickers given. Provide at least one holding.")
+
+    # Flag holdings the caller asked for that never came back with data, so a
+    # typo or a delisted symbol does not silently vanish from the portfolio.
+    missing = [t for t in holdings if t not in tickers]
+    if missing:
+        raise ValueError(
+            "These holdings are not in the available tickers: "
+            f"{', '.join(map(str, missing))}."
+        )
+
+    weights = pd.Series(0.0, index=tickers, dtype=float)
 
     known = {t: float(holdings[t]) for t in tickers
              if t in holdings and holdings[t] is not None}
+    if any(v < 0 for v in known.values()):
+        raise ValueError("Weights cannot be negative in this long-only model.")
     unknown = [t for t in tickers if t not in known]
 
     for ticker, value in known.items():
