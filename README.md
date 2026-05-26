@@ -106,6 +106,20 @@ python scripts/analyze.py --save-plots
   the results will look good for reasons that have nothing to do with portfolio
   construction. Choose the universe before you know the answer.
 
+## Periodic rebalancing
+
+The baseline rebalances to target weights every day. `rebalancing.py` adds the
+realistic version: weights drift with the market and snap back to target on a
+schedule.
+
+```python
+from portfolio_analysis.rebalancing import rebalanced_returns
+monthly = rebalanced_returns(asset_returns, weights, freq="M")
+```
+
+The gap between this and daily constant weights is the cost of letting winners
+run versus the discipline of trimming them, which is a real portfolio decision.
+
 ## Tests
 
 ```bash
